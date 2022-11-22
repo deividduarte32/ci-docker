@@ -1,29 +1,26 @@
-name: Docker Image CI
+name: Publish Docker image
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
-
-  build:
-
+  push_to_registry:
+    name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Check out the repo
+        uses: actions/checkout@v2
       
-      - name: Docker Login
-        # You may pin to the exact commit or the version.
-        # uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
         with:
-        # Server address of Docker registry. If not set then will default to Docker Hub
-        # Username used to log against the Docker registry
-          username: ${{ secrests.USER_REGISTRY }}
-        # Password or personal access token used to log against the Docker registry
+          username: ${{ secrets.USER_REGISTRY }}
           password: ${{ secrets.PASS_REGISTRY }}
-        # Specifies whether the given registry is ECR (auto, true or false)
+      
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: deividdua32/testci:latest

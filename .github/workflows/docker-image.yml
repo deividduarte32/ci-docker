@@ -18,12 +18,12 @@ jobs:
         run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       
       - name: Docker Login
-      # You may pin to the exact commit or the version.
-      # uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        # You may pin to the exact commit or the version.
+        # uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-      # Server address of Docker registry. If not set then will default to Docker Hub
-      # Username used to log against the Docker registry
+        # Server address of Docker registry. If not set then will default to Docker Hub
+        # Username used to log against the Docker registry
           username: ${{ secrests.USER_REGISTRY }}
-      # Password or personal access token used to log against the Docker registry
+        # Password or personal access token used to log against the Docker registry
           password: ${{ secrets.PASS_REGISTRY }}
-      # Specifies whether the given registry is ECR (auto, true or false)
+        # Specifies whether the given registry is ECR (auto, true or false)

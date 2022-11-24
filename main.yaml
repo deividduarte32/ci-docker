@@ -1,0 +1,32 @@
+name: CI-CD # Nome pipeline
+
+# Sempre que tiver feito um push na branch main a pipeline será acionada
+on:
+  push:
+    branches: [main]
+
+# Os fluxos que serão disparados e máquina criada e utilizada pelo github actions para efetuar testes
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+# Passos de execução de ações
+# Checkout checa o código do repo
+    steps:
+      - uses: actions/checkout@3.1.0
+
+      - name: Auth in Docker hub
+        uses: docker/login-actions@2.1.0
+        with:
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+
+      - name: Build Docker image
+        uses: docker/build-push-action@3.2.0
+        with:
+          context: .
+          file: .
+          push: true
+          tags: |
+            deividdua32/pipeline:v1
+            deividdua32/pipeline:latest

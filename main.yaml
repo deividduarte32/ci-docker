@@ -1,17 +1,19 @@
 name: CI-CD # Nome pipeline
 
 # Sempre que tiver feito um push na branch main a pipeline será acionada
+# on é o gatilho para que o workflow seja executado
 on:
   push:
     branches: [main]
 
-# Os fluxos que serão disparados e máquina criada e utilizada pelo github actions para efetuar testes
+# Os jobs definem o que será executado e máquina criada e utilizada pelo github actions para efetuar testes
 jobs:
   CI:
     runs-on: ubuntu-latest
 
 # Passos de execução de ações
 # Checkout checa o código do repo
+# Podemos ter vários steps, que executam dee maneira concorrente
     steps:
       - uses: actions/checkout@3.1.0
 

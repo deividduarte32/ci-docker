@@ -13,8 +13,9 @@ jobs:
 
 # Passos de execução de ações
 # Checkout checa o código do repo
-# Podemos ter vários steps, que executam dee maneira concorrente
+# Podemos ter vários steps, que executam de maneira concorrente
     steps:
+      # Essa action irá copiar todos os arquivos do repositório para o executor
       - uses: actions/checkout@3.1.0
 
       - name: Auth in Docker hub
